@@ -4,6 +4,10 @@
     --lixi-text-color: gold;
 }
 
+@media (max-width: 768px) {
+    
+  }
+
 body {
     display: flex;
     justify-content: center;
