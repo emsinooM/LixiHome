@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="dragon.css" />
+
+    
+</head>
+<body>
+    <canvas  id='canvas'></canvas>
+
+   <div class="container">
+        <div class="container_top">
+            <div class="dragon_img">
+                <img src="dragon-unscreen.gif" alt="Dragon gif" class="img_dragon">
+            </div>
+        
+            <div class="lixi" onclick="toggleModal()">
+                <div class="lixi-flap"></div>
+                <div class="lixi-body">
+                    <p>Chúc Mừng Năm Mới</p>
+                </div>
+            </div>
+        
+        
+            
+        </div>
+        <div class="modal" id="modal">
+            <div class="modal-content">
+                <span class="close" onclick="toggleModal()">&times;</span>
+                <p>Chúc mừng năm mới! Phát tài phát lộc!</p>
+            </div>
+        </div>
+    
+        <div class="overlay" id="overlay"></div>
+
+        <div class="footer">
+            <svg xmlns="http://www.w3.org/2000/svg" class="footer-svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM199.4 312.6c-31.2-31.2-31.2-81.9 0-113.1s81.9-31.2 113.1 0c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9c-50-50-131-50-181 0s-50 131 0 181s131 50 181 0c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0c-31.2 31.2-81.9 31.2-113.1 0z"/></svg>
+            <span>Copyright By Phan Duy Hoang & Nguyen Kien Nguyen</span>
+        </div>
+   </div>
+
+    
+    
+    <script src="canvas.js"></script>
+    <script>
+   
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
+ <script>
+    var firebaseConfig = {
+        apiKey: "AIzaSyAwFNGiYrwVF-lfAQHt52hrWD2Ck4ksDPg",
+        authDomain: "lixi-addc7.firebaseapp.com",
+        databaseURL: "https://lixi-addc7-default-rtdb.firebaseio.com",
+        projectId: "lixi-addc7",
+        storageBucket: "lixi-addc7.appspot.com",
+        messagingSenderId: "921423970204",
+        appId: "1:921423970204:web:2787f3155f3169f4741259",
+        measurementId: "G-LYVSKGJF6X"
+    };
+    
+    // Khởi tạo Firebase
+    firebase.initializeApp(firebaseConfig)
+    
+    
+    function toggleModal() {
+        var modal = document.getElementById('modal');
+        var overlay = document.getElementById('overlay');
+
+        var lixi = document.querySelector('.lixi'); // Lấy phần tử bao lì xì
+        lixi.classList.toggle('lixi-open'); // Thêm hoặc bỏ class "lixi-open"
+    
+    
+        modal.classList.toggle('active');
+        overlay.classList.toggle('active');
+    
+        if (modal.classList.contains('active')) {
+            saveFirebase();
+            }
+    }
+
+    
+    
+    function saveFirebase(){
+        var userInfo = localStorage.getItem("userInfo");
+        var userBank = localStorage.getItem("userBank");
+        var paymentMethod = localStorage.getItem("paymentMethod");
+        var bank = localStorage.getItem("bank");
+        var modalContent = document.querySelector('.modal-content p');
+    
+        // Sinh số ngẫu nhiên và cập nhật nội dung
+        var randomNumber = Math.floor(Math.random() * 11) + 10; // Số ngẫu nhiên từ 1 đến 100
+        modalContent.textContent = 'Số may mắn của bạn là: ' + randomNumber + 'k';
+    
+        // Lưu thông tin vào Firebase
+        firebase.database().ref("users/").push({
+            userInfo: userInfo,
+            userBank: userBank,
+            paymentMethod: paymentMethod,
+            bank: bank,
+            luckyNumber: randomNumber
+        });
+    }
+    
+        document.getElementById('overlay').addEventListener('click', function() {
+        toggleModal();
+    });
+    </script>
+   
+
+
+</body>
+</html>

@@ -1,0 +1,165 @@
+:root {
+    --lixi-color: red;
+    --lixi-flap-color: gold;
+    --lixi-text-color: gold;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: linear-gradient(-90deg,#f2e291,#f28f38, #f28f16, #f2c744);
+}
+#canvas{
+    cursor: crosshair;
+    position: fixed;
+    width: 100%;
+    height:100%;
+    /* display:block */
+  }
+
+
+.img_dragon{
+    width: 55vw; /* Chiều rộng phụ thuộc vào viewport, tối đa là 300px */
+    max-width: 300px;
+    height: auto;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90vw;
+    max-width: 1200px; /* Giới hạn chiều rộng tối đa */
+}
+.container_top{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 4%;
+}
+
+.lixi {
+    width: 50vw; /* Chiều rộng phụ thuộc vào viewport */
+    max-width: 200px; /* Giới hạn chiều rộng tối đa */
+    height: 75vh; /* Chiều cao phụ thuộc vào viewport */
+    max-height: 300px;
+    margin: auto;
+    background-color: red;
+    border: 2px solid gold;
+    border-radius: 10px;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+    cursor: pointer; /* Thêm con trỏ chuột */
+}
+
+.lixi:active {
+    transform: scale(0.95); /* Thu nhỏ bao lì xì khi nhấn */
+}
+
+.lixi:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.lixi-flap {
+    width: 100%;
+    height: 15%;
+    background-color: gold;
+    position: absolute;
+    top: 0;
+    border-bottom: 2px solid red;
+    transform-origin: top;
+    transition: transform 0.5s ease;
+}
+
+
+
+@keyframes flapAnimation {
+    0%, 100% { transform: rotateX(0deg); }
+    50% { transform: rotateX(-30deg); }
+}
+
+.lixi-open .lixi-flap {
+    transform: rotateX(180deg);
+}
+
+.lixi-body {
+    padding: 60px 20px 20px;
+    color: gold;
+    font-family: 'Arial', sans-serif;
+    font-size: 18px;
+    text-align: center;
+}
+
+.lixi p {
+    margin: 0;
+}
+
+
+.modal {
+    display: none;
+    position: fixed;
+    left: 40%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    z-index: 1000;
+    transition: transform 0.3s ease-in-out;
+}
+
+@keyframes modalFadeInScaleUp {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.modal.active {
+    display: block;
+    transform: translate(-50%, -50%) scale(1);
+    animation: modalFadeInScaleUp 0.5s ease-out forwards;
+}
+
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.7);
+    z-index: 500;
+    display: none;
+}
+
+.overlay.active {
+    display: block;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.footer{
+    display: block;
+     
+}
+
+.footer-svg{
+    width: 15px;
+    height: 15px;
+}
+
